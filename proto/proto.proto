@@ -6,7 +6,7 @@ option go_package = "https://github.com/Mlth/Assignment5;Replication";
 
 service Replication {
     rpc Bid (bidMessage) returns (ackMessage) {}
-    rpc Result(reqMessage) returns (resultMessage) {} 
+    rpc Result(reqMessage) returns (OutcomeMessage) {} 
 
 }
 
@@ -14,7 +14,7 @@ message bidMessage {
     int32 clientId = 1;
     int32 amount = 2;
 }
-message resultMessage {
+message OutcomeMessage {
     int32 clientId = 1;
     int32 highestBid = 2;
 }

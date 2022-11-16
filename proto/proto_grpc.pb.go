@@ -23,7 +23,7 @@ const _ = grpc.SupportPackageIsVersion7
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ReplicationClient interface {
 	Bid(ctx context.Context, in *BidMessage, opts ...grpc.CallOption) (*AckMessage, error)
-	Result(ctx context.Context, in *ReqMessage, opts ...grpc.CallOption) (*ResultMessage, error)
+	Result(ctx context.Context, in *ReqMessage, opts ...grpc.CallOption) (*OutcomeMessage, error)
 }
 
 type replicationClient struct {
@@ -43,8 +43,8 @@ func (c *replicationClient) Bid(ctx context.Context, in *BidMessage, opts ...grp
 	return out, nil
 }
 
-func (c *replicationClient) Result(ctx context.Context, in *ReqMessage, opts ...grpc.CallOption) (*ResultMessage, error) {
-	out := new(ResultMessage)
+func (c *replicationClient) Result(ctx context.Context, in *ReqMessage, opts ...grpc.CallOption) (*OutcomeMessage, error) {
+	out := new(OutcomeMessage)
 	err := c.cc.Invoke(ctx, "/Replication.Replication/Result", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -57,7 +57,7 @@ func (c *replicationClient) Result(ctx context.Context, in *ReqMessage, opts ...
 // for forward compatibility
 type ReplicationServer interface {
 	Bid(context.Context, *BidMessage) (*AckMessage, error)
-	Result(context.Context, *ReqMessage) (*ResultMessage, error)
+	Result(context.Context, *ReqMessage) (*OutcomeMessage, error)
 	mustEmbedUnimplementedReplicationServer()
 }
 
@@ -68,7 +68,7 @@ type UnimplementedReplicationServer struct {
 func (UnimplementedReplicationServer) Bid(context.Context, *BidMessage) (*AckMessage, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Bid not implemented")
 }
-func (UnimplementedReplicationServer) Result(context.Context, *ReqMessage) (*ResultMessage, error) {
+func (UnimplementedReplicationServer) Result(context.Context, *ReqMessage) (*OutcomeMessage, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Result not implemented")
 }
 func (UnimplementedReplicationServer) mustEmbedUnimplementedReplicationServer() {}
