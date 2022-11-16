@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package Replication;
+option go_package = "https://github.com/Mlth/Assignment5;Replication";
+
+
+service Replication {
+    rpc Bid (bidMessage) returns (ackMessage) {}
+    rpc Result(reqMessage) returns (resultMessage) {} 
+
+}
+
+message bidMessage {
+    int32 clientId = 1;
+    int32 amount = 2;
+}
+message resultMessage {
+    int32 clientId = 1;
+    int32 highestBid = 2;
+}
+message ackMessage {
+    string status = 1; 
+}
+message reqMessage {
+}
+
