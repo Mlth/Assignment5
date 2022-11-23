@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"log"
 	"net"
+	"os"
+	"strconv"
 	"time"
 
 	rep "github.com/Mlth/Assignment5/proto"
@@ -18,22 +20,19 @@ type repServer struct {
 var highestBid int32
 var highestBidderId int32
 var highestBidderName string
-
+var isFirstBid bool = true
 var AuctionOver bool = false
 
 func main() {
-	go func() {
-		// auction closing after 1 minut
-		fmt.Println("before timeout")
-		time.Sleep(30 * time.Second)
-		fmt.Println("time is up")
-		AuctionOver = true
-	}()
-	// Vi skal lave det sådan, at man ikke har hardcoded den til port 9080
-	// Create listener tcp on port 9080
-	list, err := net.Listen("tcp", ":9080")
+
+	arg1, _ := strconv.ParseInt(os.Args[1], 10, 32)
+	//arg2, _ := strconv.ParseInt(os.Args[2], 10, 32)
+	ownPort := int32(arg1) + 9080
+	ownPortStr := strconv.Itoa(int(ownPort))
+
+	list, err := net.Listen("tcp", ":"+ownPortStr)
 	if err != nil {
-		log.Fatalf("Failed to listen on port 9080: %v", err)
+		log.Fatalf("Failed to listen on port %s: %v", ownPortStr, err)
 	}
 	grpcServer := grpc.NewServer()
 	rep.RegisterReplicationServer(grpcServer, &repServer{})
@@ -44,7 +43,16 @@ func main() {
 }
 
 func (s *repServer) ReceiveBid(ctx context.Context, mess *rep.BidMessage) (*rep.AckMessage, error) {
-
+	if isFirstBid {
+		go func() {
+			// auction closing after 1 minut
+			fmt.Println("before timeout")
+			time.Sleep(720 * time.Second)
+			fmt.Println("time is up")
+			AuctionOver = true
+		}()
+		isFirstBid = false
+	}
 	if AuctionOver {
 		return &rep.AckMessage{BidPlaced: false, AuctionOver: true}, nil
 	}

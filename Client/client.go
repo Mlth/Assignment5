@@ -17,29 +17,35 @@ var name string
 var id int32
 var reader = bufio.NewReader(os.Stdin)
 
+var clients []rep.ReplicationClient
+
 func main() {
-	// Create a virtual RPC Client Connection on port  9080 WithInsecure (because  of http)
-	var conn *grpc.ClientConn
-	conn, err := grpc.Dial(":9080", grpc.WithInsecure())
-	if err != nil {
-		log.Fatalf("Could not connect: %s", err)
+	for i:=0 ; i<3 ; i++{
+		// Create a virtual RPC Client Connection on port  9080 WithInsecure (because  of http)
+		var conn *grpc.ClientConn
+		var port int = 9080 + i
+		portStr:= strconv.Itoa(port)
+		
+		conn, err := grpc.Dial(":" + portStr, grpc.WithInsecure())
+		if err != nil {
+			log.Fatalf("Could not connect: %s", err)
+		}
+		// Defer means: When this function returns, call this method (meaing, one main is done, close connection)
+		defer conn.Close()
+
+		//  Create new Client from generated gRPC code from proto
+		c := rep.NewReplicationClient(conn)
+		clients = append(clients, c)
 	}
-
-	// Defer means: When this function returns, call this method (meaing, one main is done, close connection)
-	defer conn.Close()
-
+	
 	fmt.Print("Write your name: ")
 	name, _ = reader.ReadString('\n')
 	name = strings.TrimSpace(name)
 
-	//  Create new Client from generated gRPC code from proto
-	c := rep.NewReplicationClient(conn)
-
-	takeInput(c)
-
+	takeInput()
 }
 
-func takeInput(c rep.ReplicationClient) {
+func takeInput() {
 	for {
 		fmt.Println("place your bid or type \"result\" to see the current highest bid")
 
@@ -47,7 +53,7 @@ func takeInput(c rep.ReplicationClient) {
 		input = strings.TrimSpace(input)
 
 		if input == "result" {
-			result, _ := c.ReturnResult(context.Background(), &rep.ReqMessage{})
+			result, _ := getResultFromAll(&rep.ReqMessage{})
 
 			if !result.AuctionOver {
 				fmt.Printf("The current highest bid is: %d placed by %s (%d)\n", result.HighestBid, result.ClientName, result.ClientId)
@@ -64,16 +70,37 @@ func takeInput(c rep.ReplicationClient) {
 			continue
 		}
 
-		ack, _ := c.ReceiveBid(context.Background(), &rep.BidMessage{ClientId: id, Amount: int32(intInput), ClientName: name})
+		ack, _ := sendBidToAll(&rep.BidMessage{ClientId: id, Amount: int32(intInput), ClientName: name})
 
 		if ack.BidPlaced {
 			fmt.Println("Your bid has been placed!")
 		} else if(!ack.AuctionOver) {
-			fmt.Println("Your bid was to low!")
+			fmt.Println("Your bid was too low!")
 		}else{
 			fmt.Println("Bid not placed, the auction is over.")
 		}
-	
 	}
-
 }
+
+func sendBidToAll(message *rep.BidMessage) (*rep.AckMessage, error){
+	var ack *rep.AckMessage
+	for _,c:= range clients{
+		tempAck,err := c.ReceiveBid(context.Background(), message)
+		if(err == nil){
+			ack = tempAck
+		}
+	}
+	return ack, nil
+}
+
+func getResultFromAll(message *rep.ReqMessage) (*rep.OutcomeMessage, error){
+	var result *rep.OutcomeMessage
+	for _,c:= range clients{
+		tempResult,err := c.ReturnResult(context.Background(), message)
+		if(err == nil){
+			result = tempResult
+		}
+	}
+	return result, nil
+}
+
