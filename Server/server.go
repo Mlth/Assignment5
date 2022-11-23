@@ -2,8 +2,10 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"log"
 	"net"
+	"time"
 
 	rep "github.com/Mlth/Assignment5/proto"
 	"google.golang.org/grpc"
@@ -13,11 +15,20 @@ type repServer struct {
 	rep.ReplicationServer
 }
 
-var highestBid int32 = 0
-var highestBidderId int32 = 0
+var highestBid int32
+var highestBidderId int32
+var highestBidderName string
+
+var AuctionOver bool = false
 
 func main() {
-
+	go func() {
+		// auction closing after 1 minut
+		fmt.Println("before timeout")
+		time.Sleep(30 * time.Second)
+		fmt.Println("time is up")
+		AuctionOver = true
+	}()
 	// Vi skal lave det sådan, at man ikke har hardcoded den til port 9080
 	// Create listener tcp on port 9080
 	list, err := net.Listen("tcp", ":9080")
@@ -32,17 +43,22 @@ func main() {
 
 }
 
-func (s *repServer) Bid(ctx context.Context, mess *rep.BidMessage) (*rep.AckMessage, error) {
+func (s *repServer) ReceiveBid(ctx context.Context, mess *rep.BidMessage) (*rep.AckMessage, error) {
+
+	if AuctionOver {
+		return &rep.AckMessage{BidPlaced: false, AuctionOver: true}, nil
+	}
 	if mess.Amount > highestBid {
 		highestBid = mess.Amount
 		highestBidderId = mess.ClientId
-		return &rep.AckMessage{Status: "Success"}, nil
+		highestBidderName = mess.ClientName
+		return &rep.AckMessage{BidPlaced: true, AuctionOver: false}, nil
 
 	}
-	return &rep.AckMessage{Status: "Failure"}, nil
+	return &rep.AckMessage{BidPlaced: false, AuctionOver: false}, nil
 
 }
-func (s *repServer) Result(ctx context.Context, msg *rep.ReqMessage) (*rep.OutcomeMessage, error) {
+func (s *repServer) ReturnResult(ctx context.Context, msg *rep.ReqMessage) (*rep.OutcomeMessage, error) {
 
-	return &rep.OutcomeMessage{ClientId: highestBidderId, HighestBid: highestBid}, nil
+	return &rep.OutcomeMessage{ClientId: highestBidderId, HighestBid: highestBid, ClientName: highestBidderName, AuctionOver: AuctionOver}, nil
 }
