@@ -1,0 +1,9 @@
+2022/11/23 14:55:27 First bid received, starting auction timer for 1 minute
+2022/11/23 14:55:27 New highest bid received, updating highest bid
+2022/11/23 14:55:27 New highest bid is 10 from client Anders (0)
+2022/11/23 14:55:53 Bid was not highest, not updating highest bid
+2022/11/23 14:56:20 New highest bid received, updating highest bid
+2022/11/23 14:56:20 New highest bid is 11 from client Anders (0)
+2022/11/23 14:56:35 Auction is over, no more bids accepted
+2022/11/23 14:56:35 Client requested result of auction
+2022/11/23 14:56:35 Returning result to client: highest bid is 11 from client Anders (0)
