@@ -16,13 +16,17 @@ import (
 
 var name string
 var id int64
+var totalPorts int64
 var reader = bufio.NewReader(os.Stdin)
 
 var clients []rep.ReplicationClient
 
 func main() {
-	//Creating .log-file for logging output from program, while still printing to the command line
+	//Loading id and total amount of ports to connect to
 	id, _ = strconv.ParseInt(os.Args[1], 10, 32)
+	totalPorts, _ = strconv.ParseInt(os.Args[2], 10, 32)
+
+	//Creating .log-file for logging output from program, while still printing to the command line
 	stringy := fmt.Sprintf("%v_client_output.log", id)
 	err := os.Remove(stringy)
 	if err != nil {
@@ -36,8 +40,9 @@ func main() {
 	defer f.Close()
 	log.SetOutput(mw)
 
-	for i := 0; i < 3; i++ {
-		// Create a virtual RPC Client Connection on port  9080 WithInsecure (because  of http)
+	//Creating connection to all servers
+	for i := 0; i < int(totalPorts); i++ {
+		// Create a virtual RPC Client Connection on port 9080 + i
 		var conn *grpc.ClientConn
 		var port int = 9080 + i
 		portStr := strconv.Itoa(port)
@@ -59,6 +64,7 @@ func main() {
 	name = strings.TrimSpace(name)
 	log.Println("Logging: " + name)
 
+	//Starting method for continuously recieving input from user
 	takeInput()
 }
 
@@ -71,8 +77,10 @@ func takeInput() {
 		log.Print("Logging: " + input)
 
 		if input == "result" || input == "Result" {
+			//Calling method to recieve result from all servers
 			result, _ := getResultFromAll(&rep.ReqMessage{})
 
+			//Displaying information to user based on whether the auction is over or not
 			if !result.AuctionOver {
 				log.Printf("The current highest bid is: %d placed by %s (%d)\n", result.HighestBid, result.ClientName, result.ClientId)
 				continue
@@ -82,14 +90,18 @@ func takeInput() {
 			}
 		}
 
+		//If we reach this point in the code, we know that the user did not type 'result'. Therefore, we convert the input to
+		//an int. If that is not possible, we know that the input is not valid, since it would either be 'result' or a number to bid
 		intInput, err := strconv.Atoi(input)
 		if err != nil {
 			log.Println("Faulty input, please try again")
 			continue
 		}
 
+		//Calling method for sending bid to all servers
 		ack, _ := sendBidToAll(&rep.BidMessage{ClientId: int32(id), Amount: int32(intInput), ClientName: name})
 
+		//Printing result to user, based on whether the bid was succesful
 		if ack.BidPlaced {
 			log.Println("Your bid has been placed!")
 		} else if !ack.AuctionOver {
