@@ -62,7 +62,7 @@ func main() {
 	log.Print("Write your name: ")
 	name, _ = reader.ReadString('\n')
 	name = strings.TrimSpace(name)
-	log.Println("Logging: " + name)
+	log.Println("(You wrote: " + name + ")")
 
 	//Starting method for continuously recieving input from user
 	takeInput()
@@ -74,7 +74,7 @@ func takeInput() {
 
 		input, _ := reader.ReadString('\n')
 		input = strings.TrimSpace(input)
-		log.Print("Logging: " + input)
+		log.Print("(You wrote: " + input + ")")
 
 		if input == "result" || input == "Result" {
 			//Calling method to recieve result from all servers
