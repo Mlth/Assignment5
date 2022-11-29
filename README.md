@@ -6,15 +6,16 @@
 5. Type ```'go run client.go x y'``` in as many terminals as you want clients,
     ```x``` = The id of the server/client
     ```y``` = Total amount of servers created
+    
     NOTE: The x-values have to start from 0 and be consecutive. Here is an example:
-    ```go
-        go run server.go 0
-        go run server.go 1
+```go
+    go run server.go 0
+    go run server.go 1
 
-        go run client.go 0 2
-        go run client.go 1 2
-        go run client.go 2 2
-    ```
+    go run client.go 0 2
+    go run client.go 1 2
+    go run client.go 2 2
+```
 When the servers and clients are created, you can use the client terminals to either write a number that is going to be your bid, or you can write 'result' to see the state of the auction.
 
 All operations can be seen in the corresponding log files for each server/client in the client/server folder

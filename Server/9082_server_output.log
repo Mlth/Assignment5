@@ -1,5 +1,8 @@
-2022/11/27 20:19:00 First bid received, starting auction timer for 1 minute
-2022/11/27 20:19:00 New highest bid received, updating highest bid
-2022/11/27 20:19:00 New highest bid is 200 from client hello (0)
-2022/11/27 20:19:19 New highest bid received, updating highest bid
-2022/11/27 20:19:19 New highest bid is 300 from client mads (2)
+2022/11/29 20:34:36 First bid received, starting auction timer for 1 minute
+2022/11/29 20:34:36 New highest bid received, updating highest bid
+2022/11/29 20:34:36 New highest bid is 50 from client Mads (2)
+2022/11/29 20:34:47 Bid was not high enough, not updating highest bid
+2022/11/29 20:34:53 Client requested result of auction
+2022/11/29 20:34:53 Returning result to client: highest bid is 50 from client Mads (2)
+2022/11/29 20:34:57 New highest bid received, updating highest bid
+2022/11/29 20:34:57 New highest bid is 100 from client Patrick (0)

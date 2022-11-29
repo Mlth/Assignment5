@@ -1,4 +1,4 @@
-cd C:\Users\super\Documents\Semestre\3rd\Distributed systems\MandatoryAssignments\Assignment5
+cd *PATH GOES HERE*
 start cmd /k "cd Server & go run server.go 0"
 start cmd /k "cd Server & go run server.go 1"
 start cmd /k "cd Server & go run server.go 2"

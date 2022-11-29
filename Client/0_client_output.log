@@ -1,6 +1,12 @@
-2022/11/27 20:18:38 Write your name: 
-2022/11/27 20:18:58 Logging: hello
-2022/11/27 20:18:58 Place your bid or type "result" to see the current highest bid
-2022/11/27 20:19:00 Logging: 200
-2022/11/27 20:19:00 Your bid has been placed!
-2022/11/27 20:19:00 Place your bid or type "result" to see the current highest bid
+2022/11/29 20:33:21 Write your name: 
+2022/11/29 20:34:21 (You wrote: Patrick)
+2022/11/29 20:34:21 Place your bid or type "result" to see the current highest bid
+2022/11/29 20:34:47 (You wrote: 25)
+2022/11/29 20:34:47 Your bid was too low!
+2022/11/29 20:34:47 Place your bid or type "result" to see the current highest bid
+2022/11/29 20:34:53 (You wrote: result)
+2022/11/29 20:34:53 The current highest bid is: 50 placed by Mads (2)
+2022/11/29 20:34:53 Place your bid or type "result" to see the current highest bid
+2022/11/29 20:34:57 (You wrote: 100)
+2022/11/29 20:34:57 Your bid has been placed!
+2022/11/29 20:34:57 Place your bid or type "result" to see the current highest bid

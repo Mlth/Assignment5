@@ -1,0 +1,97 @@
+Client 0:
+2022/11/29 20:33:21 Write your name: 
+2022/11/29 20:34:21 (You wrote: Patrick)
+2022/11/29 20:34:21 Place your bid or type "result" to see the current highest bid
+2022/11/29 20:34:47 (You wrote: 25)
+2022/11/29 20:34:47 Your bid was too low!
+2022/11/29 20:34:47 Place your bid or type "result" to see the current highest bid
+2022/11/29 20:34:53 (You wrote: result)
+2022/11/29 20:34:53 The current highest bid is: 50 placed by Mads (2)
+2022/11/29 20:34:53 Place your bid or type "result" to see the current highest bid
+2022/11/29 20:34:57 (You wrote: 100)
+2022/11/29 20:34:57 Your bid has been placed!
+2022/11/29 20:34:57 Place your bid or type "result" to see the current highest bid
+
+Client 1:
+2022/11/29 20:33:21 Write your name: 
+2022/11/29 20:34:24 (You wrote: Anders)
+2022/11/29 20:34:24 Place your bid or type "result" to see the current highest bid
+2022/11/29 20:35:06 (You wrote: 300)
+2022/11/29 20:35:09 Your bid has been placed!
+2022/11/29 20:35:09 Place your bid or type "result" to see the current highest bid
+2022/11/29 20:35:14 (You wrote: 400)
+2022/11/29 20:35:16 Your bid has been placed!
+2022/11/29 20:35:16 Place your bid or type "result" to see the current highest bid
+2022/11/29 20:36:00 (You wrote: 500)
+2022/11/29 20:36:02 Bid not placed, the auction is over.
+2022/11/29 20:36:02 The auction is over! Sold to Anders (1) for 400
+
+Client 2:
+2022/11/29 20:33:21 Write your name: 
+2022/11/29 20:34:18 (You wrote: Mads)
+2022/11/29 20:34:18 Place your bid or type "result" to see the current highest bid
+2022/11/29 20:34:36 (You wrote: 50)
+2022/11/29 20:34:36 Your bid has been placed!
+2022/11/29 20:34:36 Place your bid or type "result" to see the current highest bid
+
+Server 0:
+2022/11/29 20:34:36 First bid received, starting auction timer for 1 minute
+2022/11/29 20:34:36 New highest bid received, updating highest bid
+2022/11/29 20:34:36 New highest bid is 50 from client Mads (2)
+2022/11/29 20:34:47 Bid was not high enough, not updating highest bid
+2022/11/29 20:34:53 Client requested result of auction
+2022/11/29 20:34:53 Returning result to client: highest bid is 50 from client Mads (2)
+2022/11/29 20:34:57 New highest bid received, updating highest bid
+2022/11/29 20:34:57 New highest bid is 100 from client Patrick (0)
+2022/11/29 20:35:06 New highest bid received, updating highest bid
+2022/11/29 20:35:06 New highest bid is 300 from client Anders (1)
+2022/11/29 20:35:14 New highest bid received, updating highest bid
+2022/11/29 20:35:14 New highest bid is 400 from client Anders (1)
+2022/11/29 20:36:00 Auction is over, no more bids accepted
+2022/11/29 20:36:02 Client requested result of auction
+2022/11/29 20:36:02 Returning result to client: highest bid is 400 from client Anders (1)
+
+Server 1:
+2022/11/29 20:34:36 First bid received, starting auction timer for 1 minute
+2022/11/29 20:34:36 New highest bid received, updating highest bid
+2022/11/29 20:34:36 New highest bid is 50 from client Mads (2)
+2022/11/29 20:34:47 Bid was not high enough, not updating highest bid
+2022/11/29 20:34:53 Client requested result of auction
+2022/11/29 20:34:53 Returning result to client: highest bid is 50 from client Mads (2)
+2022/11/29 20:34:57 New highest bid received, updating highest bid
+2022/11/29 20:34:57 New highest bid is 100 from client Patrick (0)
+2022/11/29 20:35:06 New highest bid received, updating highest bid
+2022/11/29 20:35:06 New highest bid is 300 from client Anders (1)
+2022/11/29 20:35:14 New highest bid received, updating highest bid
+2022/11/29 20:35:14 New highest bid is 400 from client Anders (1)
+2022/11/29 20:36:00 Auction is over, no more bids accepted
+2022/11/29 20:36:02 Client requested result of auction
+2022/11/29 20:36:02 Returning result to client: highest bid is 400 from client Anders (1)
+
+Server 2:
+2022/11/29 20:34:36 First bid received, starting auction timer for 1 minute
+2022/11/29 20:34:36 New highest bid received, updating highest bid
+2022/11/29 20:34:36 New highest bid is 50 from client Mads (2)
+2022/11/29 20:34:47 Bid was not high enough, not updating highest bid
+2022/11/29 20:34:53 Client requested result of auction
+2022/11/29 20:34:53 Returning result to client: highest bid is 50 from client Mads (2)
+2022/11/29 20:34:57 New highest bid received, updating highest bid
+2022/11/29 20:34:57 New highest bid is 100 from client Patrick (0)
+!!!SERVER CRASHED AT THIS POINT
+
+Server 3:
+2022/11/29 20:34:36 First bid received, starting auction timer for 1 minute
+2022/11/29 20:34:36 New highest bid received, updating highest bid
+2022/11/29 20:34:36 New highest bid is 50 from client Mads (2)
+2022/11/29 20:34:47 Bid was not high enough, not updating highest bid
+2022/11/29 20:34:53 Client requested result of auction
+2022/11/29 20:34:53 Returning result to client: highest bid is 50 from client Mads (2)
+2022/11/29 20:34:57 New highest bid received, updating highest bid
+2022/11/29 20:34:57 New highest bid is 100 from client Patrick (0)
+2022/11/29 20:35:08 New highest bid received, updating highest bid
+2022/11/29 20:35:09 New highest bid is 300 from client Anders (1)
+2022/11/29 20:35:16 New highest bid received, updating highest bid
+2022/11/29 20:35:16 New highest bid is 400 from client Anders (1)
+2022/11/29 20:36:02 Auction is over, no more bids accepted
+2022/11/29 20:36:02 Client requested result of auction
+2022/11/29 20:36:02 Returning result to client: highest bid is 400 from client Anders (1)
