@@ -21,4 +21,4 @@ When the servers and clients are created, you can use the client terminals to ei
 All operations can be seen in the corresponding log files for each server/client in the client/server folder
 
 #### NOTE: Optionally if you are using Windows, you may also be able to use one of the script files to start the program for you, with a default of 4 servers and 3 clients.
-- WINDOWS: change the path of the startup.bat file and double click the file
+- WINDOWS: change the path in the startup.bat file and double click the file
